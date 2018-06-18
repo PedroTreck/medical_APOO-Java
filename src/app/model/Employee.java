@@ -1,15 +1,20 @@
 package app.model;
 
+import app.model.address.Address;
+
 import java.util.Date;
 
 public class Employee extends Person {
     private float salary;
     private String specialty;
 
-    public Employee(String firt_name, String last_name, char sex, Address address, String mail, Date date, boolean active, float salary, String specialty) {
-        super(firt_name, last_name, sex, address, mail, date, active);
+    public Employee(short id, String firt_name, String last_name, char sex, Address address, String mail, Date date, float salary, String specialty) {
+        super(id, firt_name, last_name, sex, address, mail, date);
         this.salary = salary;
         this.specialty = specialty;
+    }
+
+    public Employee() {
     }
 
     public float getSalary() {

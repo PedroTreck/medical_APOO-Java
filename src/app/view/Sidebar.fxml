@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox fx:id="sidebar" alignment="TOP_CENTER" prefHeight="580.0" prefWidth="250.0" styleClass="sidebar" stylesheets="@../css/stylehseet.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="app.controller.SidebarController">
+<VBox fx:id="sidebar" alignment="TOP_CENTER" prefHeight="580.0" prefWidth="250.0" styleClass="sidebar" stylesheets="@../css/stylehseet.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.SidebarController">
    <children>
       <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" smooth="false">
          <image>
@@ -21,7 +20,7 @@
             <Insets top="10.0" />
          </VBox.margin>
       </ImageView>
-      <JFXButton contentDisplay="RIGHT" ripplerFill="#e4dddd" styleClass="sidebar-user-btn" text="Neuton Barley">
+      <JFXButton contentDisplay="RIGHT" ripplerFill="#e4dddd" styleClass="sidebar-user-btn" text="Admin">
          <font>
             <Font name="Calibri" size="14.0" />
          </font>
@@ -40,7 +39,7 @@
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
       </Label>
-      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="250.0" styleClass="sidebar-btn">
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#home" prefHeight="35.0" prefWidth="250.0" styleClass="sidebar-btn">
          <VBox.margin>
             <Insets />
          </VBox.margin>
@@ -65,7 +64,7 @@
          </padding>
          <children>
             <FontAwesomeIcon iconName="ARCHIVE" size="1.5em" styleClass="sidebar-btn-icon" />
-            <Label text="JOBS" textFill="#b8b1b1">
+            <Label text="PACIENTES" textFill="#b8b1b1">
                <font>
                   <Font name="Consolas Bold" size="13.0" />
                </font>
@@ -81,7 +80,7 @@
          </padding>
          <children>
             <FontAwesomeIcon iconName="BRIEFCASE" size="1.5em" styleClass="sidebar-btn-icon" />
-            <Label text="RESUMES" textFill="#b8b1b1">
+            <Label text="MÉDICOS" textFill="#b8b1b1">
                <font>
                   <Font name="Consolas Bold" size="13.0" />
                </font>
@@ -97,7 +96,7 @@
          </padding>
          <children>
             <FontAwesomeIcon iconName="TASKS" size="1.5em" styleClass="sidebar-btn-icon" />
-            <Label text="TASK" textFill="#b8b1b1">
+            <Label text="TRATAMENTOS" textFill="#b8b1b1">
                <font>
                   <Font name="Consolas Bold" size="13.0" />
                </font>
@@ -113,7 +112,7 @@
          </padding>
          <children>
             <FontAwesomeIcon iconName="CALENDAR" size="1.5em" styleClass="sidebar-btn-icon" />
-            <Label text="CALENDER" textFill="#b8b1b1">
+            <Label text="CALENDÁRIO" textFill="#b8b1b1">
                <font>
                   <Font name="Consolas Bold" size="13.0" />
                </font>
@@ -134,13 +133,13 @@
             <Insets top="20.0" />
          </VBox.margin>
       </Label>
-      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="250.0" styleClass="sidebar-btn">
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#newPatient" prefHeight="35.0" prefWidth="250.0" styleClass="sidebar-btn">
          <padding>
             <Insets left="20.0" />
          </padding>
          <children>
             <FontAwesomeIcon iconName="USERS" size="1.5em" styleClass="sidebar-btn-icon" />
-            <Label text="USERS" textFill="#b8b1b1">
+            <Label text="NOVO PACIENTE" textFill="#b8b1b1">
                <font>
                   <Font name="Consolas Bold" size="13.0" />
                </font>
@@ -156,7 +155,7 @@
          </padding>
          <children>
             <FontAwesomeIcon iconName="MAP_MARKER" size="1.5em" styleClass="sidebar-btn-icon" />
-            <Label text="LOCATIONS" textFill="#b8b1b1">
+            <Label text="NOVO MÉDICO" textFill="#b8b1b1">
                <font>
                   <Font name="Consolas Bold" size="13.0" />
                </font>
@@ -172,7 +171,7 @@
          </padding>
          <children>
             <FontAwesomeIcon iconName="SITEMAP" size="1.5em" styleClass="sidebar-btn-icon" />
-            <Label text="WORKFLOW" textFill="#b8b1b1">
+            <Label text="-" textFill="#b8b1b1">
                <font>
                   <Font name="Consolas Bold" size="13.0" />
                </font>
@@ -188,7 +187,7 @@
          </padding>
          <children>
             <FontAwesomeIcon iconName="DESKTOP" size="1.5em" styleClass="sidebar-btn-icon" />
-            <Label text="JOB BOARDS" textFill="#b8b1b1">
+            <Label text="-" textFill="#b8b1b1">
                <font>
                   <Font name="Consolas Bold" size="13.0" />
                </font>
@@ -204,7 +203,7 @@
          </padding>
          <children>
             <FontAwesomeIcon iconName="RSS" size="1.5em" styleClass="sidebar-btn-icon" />
-            <Label text="SOCIAL" textFill="#b8b1b1">
+            <Label text="-" textFill="#b8b1b1">
                <font>
                   <Font name="Consolas Bold" size="13.0" />
                </font>

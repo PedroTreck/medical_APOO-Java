@@ -26,6 +26,10 @@ public class DataBaseGeneric extends DataBase{
         }
     }
 
+    public void setTable(String table) {
+        this.table = table;
+    }
+
     public Boolean checkEmptyTable(){
         if(this.table.isEmpty()){
             System.out.println("Nenhuma tabela foi selecionada.");
@@ -38,7 +42,14 @@ public class DataBaseGeneric extends DataBase{
         this.checkConnection();
         if(!this.checkEmptyTable())
             return null;
-        return this.query("SELECT * FROM " + this.table + " WHERE id=?", id);
+        return this.query("SELECT * FROM " + this.table + " WHERE "+ this.table +"_id=?", id);
+    }
+
+    public ResultSet getOne(int id, String coll){
+        this.checkConnection();
+        if(!this.checkEmptyTable())
+            return null;
+        return this.query("SELECT * FROM " + this.table + " WHERE "+ coll +"=?", id);
     }
 
     public ResultSet getAll(){
@@ -106,6 +117,53 @@ public class DataBaseGeneric extends DataBase{
         sql.append(")");
 
         this.execute(sql.toString(), list);
+    }
+
+    public ResultSet genericInsertReturn(Map<Object, Object> mapObj, String to){
+        this.checkConnection();
+        if(!this.checkEmptyTable())
+            return null;
+
+        StringBuilder sql = new StringBuilder();
+        ArrayList<Object> list = new ArrayList<>();
+
+        if(!mapObj.isEmpty()){
+            for(Map.Entry<Object, Object> entry : mapObj.entrySet()) {
+                if(entry.getValue() == null || entry.getValue().equals("")) {
+                    mapObj.remove(entry.getKey());
+                }
+            }
+        }
+
+        sql.append("INSERT INTO");
+        sql.append(" ").append(this.table);
+        sql.append("(");
+
+        if(!mapObj.isEmpty()){
+            for(Map.Entry<Object, Object> entry : mapObj.entrySet()) {
+                sql.append(entry.getKey());
+                sql.append(",");
+            }
+        }
+
+        sql = new StringBuilder(sql.subSequence(0, sql.length() - 1));
+        sql.append(")");
+        sql.append(" VALUES");
+        sql.append("(");
+
+        if(!mapObj.isEmpty()) {
+            for(Map.Entry<Object, Object> entry : mapObj.entrySet()) {
+                list.add(entry.getValue());
+                sql.append("?");
+                sql.append(",");
+            }
+        }
+
+        sql = new StringBuilder(sql.subSequence(0, sql.length() - 1));
+        sql.append(") RETURNING ");
+        sql.append(to);
+
+        return this.query(sql.toString(), list);
     }
 
     public void genericUpdate(Map<Object, Object> mapObj, Map<Object, Object> mapCondition){

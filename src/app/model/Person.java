@@ -1,8 +1,11 @@
 package app.model;
 
+import app.model.address.Address;
+
 import java.util.Date;
 
 public abstract class Person {
+    protected short id;
     protected String firt_name;
     protected String last_name;
     protected char sex;
@@ -11,14 +14,25 @@ public abstract class Person {
     protected Date date;
     protected boolean active;
 
-    public Person(String firt_name, String last_name, char sex, Address address, String mail, Date date, boolean active) {
+    public Person(short id, String firt_name, String last_name, char sex, Address address, String mail, Date date) {
+        this.id = id;
         this.firt_name = firt_name;
         this.last_name = last_name;
         this.sex = sex;
         this.address = address;
         this.mail = mail;
         this.date = date;
-        this.active = active;
+    }
+
+    public Person() {
+    }
+
+    public short getId() {
+        return id;
+    }
+
+    public void setId(short id) {
+        this.id = id;
     }
 
     public String getFirt_name() {

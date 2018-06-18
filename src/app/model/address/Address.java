@@ -1,26 +1,27 @@
-package app.model;
+package app.model.address;
 
 public class Address {
     private String address1;
     private String address2;
     private String district;
-    private short mumber;
-    private String city;
-    private String state;
-    private String country;
+    private short number;
+    private short city_id;
+    private City city;
     private String postal_code;
     private String phone;
 
-    public Address(String address1, String address2, String district, short mumber, String city, String state, String country, String postal_code, String phone) {
+    public Address(String address1, String address2, String district, short number, short city_id, City city, String postal_code, String phone) {
         this.address1 = address1;
         this.address2 = address2;
         this.district = district;
-        this.mumber = mumber;
+        this.number = number;
+        this.city_id = city_id;
         this.city = city;
-        this.state = state;
-        this.country = country;
         this.postal_code = postal_code;
         this.phone = phone;
+    }
+
+    public Address() {
     }
 
     public String getAddress1() {
@@ -47,36 +48,28 @@ public class Address {
         this.district = district;
     }
 
-    public short getMumber() {
-        return mumber;
+    public short getNumber() {
+        return number;
     }
 
-    public void setMumber(short mumber) {
-        this.mumber = mumber;
+    public void setNumber(short number) {
+        this.number = number;
     }
 
-    public String getCity() {
+    public short getCity_id() {
+        return city_id;
+    }
+
+    public void setCity_id(short city_id) {
+        this.city_id = city_id;
+    }
+
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getPostal_code() {

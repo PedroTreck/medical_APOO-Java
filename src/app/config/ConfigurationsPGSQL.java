@@ -2,13 +2,13 @@ package app.config;
 
 public class ConfigurationsPGSQL extends Configurations{
     public ConfigurationsPGSQL() {
-        super.TYPE = "postgres";
+        super.TYPE = "postgresql";
         super.HOST = "localhost";
         super.USER = "postgres";
-        super.PASS = "106868";
+        super.PASS = "";
         super.PORT = "5432";
         super.BASE = "med";
-        super.DRIV = "com.mysql.cj.jdbc.Driver";
+        super.DRIV = "org.postgresql.Driver";
         super.SSL = "&useSSL=false";
         super.TIMEZONE = "&useTimezone=true&serverTimezone=UTC";
     }
