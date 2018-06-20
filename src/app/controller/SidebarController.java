@@ -47,5 +47,17 @@ public class SidebarController implements Initializable {
         }
         border_pane.setCenter(sidebar);
     }
+
+    @FXML
+    private void newTreat(MouseEvent event){
+        BorderPane border_pane = (BorderPane) ((Node) event.getSource()).getScene().getRoot();
+        Parent sidebar = null;
+        try {
+            sidebar = FXMLLoader.load(getClass().getResource("/app/view/RegisterTreatment.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        border_pane.setCenter(sidebar);
+    }
     
 }

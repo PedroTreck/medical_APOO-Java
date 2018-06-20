@@ -165,13 +165,13 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="234.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="250.0" styleClass="sidebar-btn">
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="234.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#newTreat" prefHeight="35.0" prefWidth="250.0" styleClass="sidebar-btn">
          <padding>
             <Insets left="20.0" />
          </padding>
          <children>
             <FontAwesomeIcon iconName="SITEMAP" size="1.5em" styleClass="sidebar-btn-icon" />
-            <Label text="-" textFill="#b8b1b1">
+            <Label text="NOVO TRATAMENTO" textFill="#b8b1b1">
                <font>
                   <Font name="Consolas Bold" size="13.0" />
                </font>
