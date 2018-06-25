@@ -13,6 +13,7 @@ import app.model.interfaces.ImplementEmployee;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
 import java.util.*;
 
 public class EmployeeData extends DataBaseGeneric implements ImplementEmployee {
@@ -26,7 +27,7 @@ public class EmployeeData extends DataBaseGeneric implements ImplementEmployee {
 
     @Override
     public void insert(Employee employee) {
-        Map<Object, Object> mapObj = insertPerson("employee", employee.getFirt_name(), employee.getLast_name(), employee.getSex(), employee.getDate(), employee.getAddress());
+        Map<Object, Object> mapObj = insertPerson("employee", employee.getFirt_name(), employee.getLast_name(), employee.getSex(), employee.getMail(), employee.getDate(), employee.getAddress());
         this.setTable("employee");
         mapObj.put("salary", employee.getSalary());
         mapObj.put("specialty", employee.getSpecialty());
@@ -36,20 +37,20 @@ public class EmployeeData extends DataBaseGeneric implements ImplementEmployee {
 
     @Override
     public void insert(Patient patient) {
-        Map<Object, Object> mapObj = insertPerson("patient", patient.getFirt_name(), patient.getLast_name(), patient.getSex(), patient.getDate(), patient.getAddress());
+        Map<Object, Object> mapObj = insertPerson("patient", patient.getFirt_name(), patient.getLast_name(), patient.getSex(), patient.getMail(),  patient.getDate(), patient.getAddress());
         this.genericInsert(mapObj);
     }
 
-    private Map<Object, Object> insertPerson(String table, String firt_name, String last_name, char sex, Date date, Address address) {
+    private Map<Object, Object> insertPerson(String table, String firt_name, String last_name, char sex,String mail, Date date, Address address) {
         Map<Object, Object> mapObj = new HashMap<>();
         this.setTable(table);
         mapObj.put("first_name", firt_name);
-        mapObj.put("last_name_name", last_name);
+        mapObj.put("last_name", last_name);
         mapObj.put("sex", sex);
-        mapObj.put("mail", date);
-        mapObj.put("create_date", Calendar.getInstance().getTime());
+        mapObj.put("mail", mail);
+        mapObj.put("date", date);
         mapObj.put("active", true);
-        mapObj.put("address_id", insertAdress(address));
+        //mapObj.put("address_id", insertAdress(address));
         return mapObj;
     }
 
@@ -88,7 +89,7 @@ public class EmployeeData extends DataBaseGeneric implements ImplementEmployee {
     }
 
     @Override
-    public List<Employee> getAllEmployee() {
+    public ArrayList<Employee> getAllEmployee() {
         listEmployee = new ArrayList<Employee>();
         this.setTable("employee");
         ResultSet rs = this.getAll();
@@ -133,7 +134,7 @@ public class EmployeeData extends DataBaseGeneric implements ImplementEmployee {
             person.setMail(rs.getString("mail"));
             person.setDate(rs.getDate("date"));
             person.setActive(rs.getBoolean("active"));
-            person.setAddress(getAddress(rs.getShort("address_id")));
+            //person.setAddress(getAddress(rs.getShort("address_id")));
             return person;
         } catch (SQLException e) {
             System.out.println("Erro ao retornar uma pessoa pelo id: " + e.getMessage());
@@ -199,17 +200,63 @@ public class EmployeeData extends DataBaseGeneric implements ImplementEmployee {
 
     @Override
     public Employee getOneEmployeee(int id) {
-        this.setTable("employeee");
+        this.setTable("employee");
         ResultSet rs = this.getOne(id);
-        Employee employee = new Employee();
+        Employee employee;
         try {
+            rs.next();
             employee = (Employee) getPerson(new Employee(), rs);
             employee.setSalary(rs.getFloat("salary"));
             employee.setSpecialty(rs.getString("specialty"));
             employee.setId(rs.getShort("employee_id"));
             return employee;
         } catch (SQLException ex) {
-            System.out.println("Erro ao retornar um curso pelo id: " + ex.getMessage());
+            System.out.println("Erro ao retornar um empregado pelo id: " + ex.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<Country> getAllCountry(){
+        ArrayList<Country> listCountry = new ArrayList<>();
+        this.setTable("country");
+        ResultSet rs = this.getAll();
+        try {
+            while (rs.next()) {
+                listCountry.add(new Country(rs.getShort("country_id"),rs.getString("country_pt")));
+            }
+            return listCountry;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao retornar um pais pelo nome: " + ex.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<State> getAllState(Country country){
+        ArrayList<State> listState = new ArrayList<>();
+        this.setTable("state");
+        ResultSet rs = this.getEqual("country_id",country.getId());
+        try {
+            while (rs.next()) {
+                listState.add(new State(rs.getShort("state_id"),rs.getString("state"), country));
+            }
+            return listState;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao retornar um pais pelo nome: " + ex.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<City> getAllCity(State state){
+        ArrayList<City> listCity = new ArrayList<>();
+        this.setTable("city");
+        ResultSet rs = this.getEqual("state_id",state.getId());
+        try {
+            while (rs.next()) {
+                listCity.add(new City(rs.getShort("city_id"),rs.getString("city"), state));
+            }
+            return listCity;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao retornar uma cidade pelo nome: " + ex.getMessage());
         }
         return null;
     }

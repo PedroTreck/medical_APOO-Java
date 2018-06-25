@@ -2,7 +2,7 @@ package app.model;
 
 import app.model.address.Address;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Employee extends Person {
     private float salary;
@@ -31,5 +31,10 @@ public class Employee extends Person {
 
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
+    }
+
+    @Override
+    public String toString() {
+        return firt_name + " " + last_name;
     }
 }

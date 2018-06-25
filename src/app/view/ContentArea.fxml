@@ -68,7 +68,7 @@
                         <Insets left="10.0" />
                     </HBox.margin>
                     <children>
-                        <Label styleClass="lbl2" text="Clinica Médica" textFill="#757373">
+                        <Label fx:id="lbName" styleClass="lbl2" text="Clinica Médica" textFill="#757373">
                             <font>
                                 <Font name="Calibri Bold" size="28.0" />
                             </font>
@@ -154,7 +154,7 @@
                 <Insets bottom="10.0" top="10.0" />
             </padding>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="300.0" prefWidth="774.0" VBox.vgrow="ALWAYS">
+        <HBox fx:id="contentPane" alignment="CENTER" prefHeight="300.0" prefWidth="774.0" VBox.vgrow="ALWAYS">
             <children>
                 <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="150.0">
                     <children>

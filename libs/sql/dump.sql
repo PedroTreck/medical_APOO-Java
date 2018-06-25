@@ -15,41 +15,6 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: med; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE med WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'Portuguese_Brazil.1252' LC_CTYPE = 'Portuguese_Brazil.1252';
-
-
-ALTER DATABASE med OWNER TO postgres;
-
-\connect med
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -142,7 +107,8 @@ CREATE TABLE public.consult (
     exam_id integer,
     treatment_id integer NOT NULL,
     consult_id integer NOT NULL,
-    report text
+    report text,
+    confirm boolean DEFAULT false
 );
 
 
@@ -234,7 +200,7 @@ CREATE TABLE public.employee (
     date date NOT NULL,
     salary double precision NOT NULL,
     specialty character varying(25) NOT NULL,
-    create_date date NOT NULL,
+    create_date date DEFAULT CURRENT_DATE NOT NULL,
     active boolean NOT NULL,
     password character varying(255) NOT NULL,
     employee_id smallint NOT NULL
@@ -308,10 +274,10 @@ CREATE TABLE public.patient (
     first_name character varying(50) NOT NULL,
     last_name character varying(50) NOT NULL,
     sex character(1) NOT NULL,
-    address_id smallint NOT NULL,
+    address_id smallint,
     mail character varying(50) NOT NULL,
     date date NOT NULL,
-    create_date date NOT NULL,
+    create_date date DEFAULT CURRENT_DATE NOT NULL,
     active boolean NOT NULL,
     patient_id integer NOT NULL
 );
@@ -347,7 +313,7 @@ ALTER SEQUENCE public.patient_patient_id_seq OWNED BY public.patient.patient_id;
 
 CREATE TABLE public.payment (
     amount numeric(5,2) NOT NULL,
-    payment_date date,
+    payment_date date DEFAULT CURRENT_DATE,
     payment_id integer NOT NULL
 );
 
@@ -6137,7 +6103,17 @@ COPY public.city (city_id, city, last_update, state_id) FROM stdin;
 -- Data for Name: consult; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.consult (date, history, payment_id, employee_id, exam_id, treatment_id, consult_id, report) FROM stdin;
+COPY public.consult (date, history, payment_id, employee_id, exam_id, treatment_id, consult_id, report, confirm) FROM stdin;
+2018-08-16 12:44:00	Novo	\N	8	\N	7	8	\N	f
+2018-06-14 14:35:00	novo	\N	8	\N	11	6	\N	f
+2018-06-13 02:37:00	Consulta Nova	\N	2	\N	5	4	\N	f
+2018-06-26 10:35:00	nova	\N	8	\N	8	2	\N	f
+2018-08-29 12:09:00	Consulta	\N	8	\N	4	9	\N	f
+2018-06-29 12:39:00	Consulta Nova	\N	2	\N	4	7	\N	f
+2018-06-27 00:30:00	Teste	\N	2	\N	4	5	\N	f
+2018-06-20 07:36:00	\N	\N	2	\N	4	3	\N	t
+2018-06-02 23:52:00	Consulta	\N	8	\N	12	10	\N	f
+2018-06-07 12:08:00	Sem Descrição	\N	2	\N	13	11	\N	f
 \.
 
 
@@ -6410,7 +6386,8 @@ COPY public.country (country_id, country, country_pt, initial, last_update) FROM
 --
 
 COPY public.employee (first_name, last_name, sex, address_id, mail, date, salary, specialty, create_date, active, password, employee_id) FROM stdin;
-admin		Z	1	admin@admin.com	2018-12-31	0		2018-06-17	t	admin	2
+Khloe	Espinoza	F	1	espinoza	2018-06-19	0	Médico	2018-06-25	t	admin	8
+Jolyon	Mercado	M	1	admin@admin.com	2018-12-31	0		2018-06-17	t	admin	2
 \.
 
 
@@ -6427,7 +6404,16 @@ COPY public.exam (type, description, exam_id) FROM stdin;
 --
 
 COPY public.patient (first_name, last_name, sex, address_id, mail, date, create_date, active, patient_id) FROM stdin;
-Pedro	Bernardi	M	1	pedro#gmail.com	2018-07-21	2018-06-17	t	1
+Daniel	Medeiros	M	\N	dan	1998-08-12	2018-06-24	t	15
+Pedro	Bernardi	M	1	pedro#gmail.com	2003-07-16	2018-06-17	t	1
+Lauren	Brown	F	\N	b	1998-06-17	2018-06-24	t	16
+Jessica	Jessica	F	\N	jd	1978-06-27	2018-06-24	t	17
+Samuel	Torres	M	\N	s	1994-06-02	2018-06-24	t	18
+Toni	Miller	M	\N	tm	2013-06-19	2018-06-24	t	19
+Luciano	Villegas	M	\N	l	2002-06-06	2018-06-24	t	20
+Raquel	Manuel	F	\N	d	1986-06-23	2018-06-24	t	21
+Manuel	Daniel	F	\N	sd	1993-06-24	2018-06-24	t	22
+Tessa	Boyde	F	\N	tessa@hotmail.com	1991-06-12	2018-06-25	t	23
 \.
 
 
@@ -6481,6 +6467,16 @@ COPY public.state (state_id, state, uf, ibge, country_id, last_update) FROM stdi
 
 COPY public.treatment (date_start, date_end, patient_id, treatment_id, description) FROM stdin;
 2018-06-17	2018-06-29	1	3	Tratamento Especifico
+2018-05-09	2018-10-19	1	4	Tratamento Básico
+2018-06-13	2018-06-28	1	5	Novo Tratamento
+2018-02-13	2019-06-20	20	6	Tratamento Novo
+2018-06-06	2018-06-22	18	7	Novo
+2018-06-01	2018-06-29	15	8	Tratamento Novo
+2018-06-12	2018-06-28	1	9	Tratamento Não Especifico
+2018-06-01	2018-06-29	17	10	Novo Tratamento
+2018-06-21	2018-06-22	19	11	Novo
+2018-06-07	2018-06-29	18	12	Novo Tratamento
+2018-06-01	2018-06-16	22	13	Sem Descrição
 \.
 
 
@@ -6509,7 +6505,7 @@ SELECT pg_catalog.setval('public.consult_consult_id_seq', 1, false);
 -- Name: consult_consult_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.consult_consult_id_seq1', 1, false);
+SELECT pg_catalog.setval('public.consult_consult_id_seq1', 11, true);
 
 
 --
@@ -6523,7 +6519,7 @@ SELECT pg_catalog.setval('public.country_country_id_seq', 1, false);
 -- Name: employee_employee_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.employee_employee_id_seq', 2, true);
+SELECT pg_catalog.setval('public.employee_employee_id_seq', 8, true);
 
 
 --
@@ -6537,7 +6533,7 @@ SELECT pg_catalog.setval('public.exam_exam_id_seq', 1, false);
 -- Name: patient_patient_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.patient_patient_id_seq', 1, true);
+SELECT pg_catalog.setval('public.patient_patient_id_seq', 23, true);
 
 
 --
@@ -6558,7 +6554,7 @@ SELECT pg_catalog.setval('public.state_state_id_seq', 1, false);
 -- Name: treatment_treatment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.treatment_treatment_id_seq', 3, true);
+SELECT pg_catalog.setval('public.treatment_treatment_id_seq', 13, true);
 
 
 --

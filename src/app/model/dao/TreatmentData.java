@@ -8,7 +8,10 @@ import app.model.interfaces.ImplementTreatment;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TreatmentData extends DataBaseGeneric implements ImplementTreatment {
 
@@ -47,6 +50,7 @@ public class TreatmentData extends DataBaseGeneric implements ImplementTreatment
             ResultSet rs = this.getOne(patient.getId(),"patient_id");
             while (rs.next()) {
                 Treatment treatment = new Treatment();
+                treatment.setId(rs.getShort("treatment_id"));
                 treatment.setDate_end(rs.getDate("date_end"));
                 treatment.setDate_start(rs.getDate("date_start"));
                 treatment.setDescription(rs.getString("description"));

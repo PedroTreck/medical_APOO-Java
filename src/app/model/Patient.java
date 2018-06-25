@@ -2,7 +2,7 @@ package app.model;
 
 import app.model.address.Address;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Patient extends Person {
 

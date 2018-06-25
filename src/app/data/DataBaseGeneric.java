@@ -73,6 +73,13 @@ public class DataBaseGeneric extends DataBase{
         return this.query("SELECT * FROM " + this.table + " WHERE " + field + "=?",value);
     }
 
+    public ResultSet getEqual(String field, int value){
+        this.checkConnection();
+        if(!this.checkEmptyTable())
+            return null;
+        return this.query("SELECT * FROM " + this.table + " WHERE " + field + "=?",value);
+    }
+
     public void genericInsert(Map<Object, Object> mapObj){
         this.checkConnection();
         if(!this.checkEmptyTable())

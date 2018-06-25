@@ -37,6 +37,23 @@ public class SidebarController implements Initializable {
     }
 
     @FXML
+    private void viewTable(MouseEvent event){
+        BorderPane border_pane = (BorderPane) ((Node) event.getSource()).getScene().getRoot();
+        FXMLLoader sidebar = null;
+        Parent layout = null;
+        try {
+            sidebar = new FXMLLoader(getClass().getResource("/app/view/TreeTableView.fxml"));
+            sidebar.setController(new TreeTableViewEmpController());
+            layout = sidebar.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TreeTableViewEmpController controller = sidebar.getController();
+        controller.execute();
+        border_pane.setCenter(layout);
+    }
+
+    @FXML
     private void newPatient(MouseEvent event){
         BorderPane border_pane = (BorderPane) ((Node) event.getSource()).getScene().getRoot();
         Parent sidebar = null;

@@ -1,10 +1,12 @@
 package app.model;
 
 import app.model.address.Address;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
 
-public abstract class Person {
+public abstract class Person extends RecursiveTreeObject<Person> {
     protected short id;
     protected String firt_name;
     protected String last_name;
@@ -89,5 +91,30 @@ public abstract class Person {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public int getAge(){
+        Calendar today = Calendar.getInstance();
+        Calendar birthDate = Calendar.getInstance();
+        birthDate.setTime(getDate());
+        int todayYear = today.get(Calendar.YEAR);
+        int birthDateYear = birthDate.get(Calendar.YEAR);
+        int todayDayOfYear = today.get(Calendar.DAY_OF_YEAR);
+        int birthDateDayOfYear = birthDate.get(Calendar.DAY_OF_YEAR);
+        int todayMonth = today.get(Calendar.MONTH);
+        int birthDateMonth = birthDate.get(Calendar.MONTH);
+        int todayDayOfMonth = today.get(Calendar.DAY_OF_MONTH);
+        int birthDateDayOfMonth = birthDate.get(Calendar.DAY_OF_MONTH);
+        int age = todayYear - birthDateYear;
+
+        // If birth date is greater than todays date (after 2 days adjustment of leap year) then decrement age one year
+        if ((birthDateDayOfYear - todayDayOfYear > 3) || (birthDateMonth > todayMonth)){
+            age--;
+
+            // If birth date and todays date are of same month and birth day of month is greater than todays day of month then decrement age
+        } else if ((birthDateMonth == todayMonth) && (birthDateDayOfMonth > todayDayOfMonth)){
+            age--;
+        }
+        return age;
     }
 }

@@ -8,18 +8,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="417.0" prefWidth="700.0" stylesheets="@../css/stylehseet.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.RegisterPatientController">
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<AnchorPane id="AnchorPane" prefHeight="417.0" prefWidth="700.0" stylesheets="@../css/stylehseet.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.RegisterTreatmentController">
     <children>
-        <JFXTextField focusColor="#48a5ea" layoutX="133.0" layoutY="92.0" prefHeight="25.0" prefWidth="217.0" promptText="Descrição Tratamento" />
-        <JFXDatePicker layoutX="133.0" layoutY="157.0" prefHeight="25.0" prefWidth="217.0" promptText="Inicio" />
-        <JFXDatePicker layoutX="418.0" layoutY="157.0" prefHeight="25.0" prefWidth="217.0" promptText="Final" />
+        <JFXTextField fx:id="tfDesc" focusColor="#48a5ea" layoutX="133.0" layoutY="92.0" prefHeight="25.0" prefWidth="217.0" promptText="Descrição Tratamento" />
+        <JFXDatePicker fx:id="dpDateStart" layoutX="133.0" layoutY="157.0" prefHeight="25.0" prefWidth="217.0" promptText="Inicio" />
+        <JFXDatePicker fx:id="dpDateEnd" layoutX="418.0" layoutY="157.0" prefHeight="25.0" prefWidth="217.0" promptText="Final" />
         <Label layoutX="133.0" layoutY="31.0" styleClass="lbl2" text="Novo Tratamento">
             <font>
                 <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-        <JFXButton layoutX="133.0" layoutY="349.0" prefHeight="25.0" prefWidth="94.0" text="Reset All" />
-        <JFXButton layoutX="524.0" layoutY="349.0" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: #48A5EA;" text="Continue" textFill="WHITE" />
+        <JFXButton layoutX="133.0" layoutY="349.0" prefHeight="25.0" prefWidth="94.0" text="Limpar Tudo" />
+        <JFXButton buttonType="RAISED" layoutX="524.0" layoutY="349.0" onAction="#addTreat" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: #009698;" text="Cadastrar" textFill="WHITE" />
         <Separator layoutX="133.0" layoutY="68.0" prefHeight="1.0" prefWidth="520.0" />
+        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="23.0" layoutY="337.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#back" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="menu-bar-btns">
+            <graphic>
+                <FontAwesomeIcon iconName="CHEVRON_LEFT" size="2em" styleClass="menu-bar-btns-icon" />
+            </graphic>
+        </JFXButton>
     </children>
 </AnchorPane>
